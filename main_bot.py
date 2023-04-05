@@ -52,4 +52,12 @@ async def say(interation: discord.Interaction, message: str):
         await interation.response.send_message(message)
     except:
         await interation.response.send_message("I don't want to say that!!")
+
+@bot.tree.command(name="embed_test", description="test")
+async def embed_test(interation: discord.Interaction):
+    embed = discord.Embed(title="Embed Test", description="Omg this is a test about embeds :O", colour=discord.Color.blue())
+    embed.set_author(name=interation.user.name)
+    embed.set_image(url="https://images-eds-ssl.xboxlive.com/image?url=Q_rwcVSTCIytJ0KOzcjWTYl.n38D8jlKWXJx7NRJmQKBAEDCgtTAQ0JS02UoaiwRCHTTX1RAopljdoYpOaNfVf5nBNvbwGfyR5n4DAs0DsOwxSO9puiT_GgKqinHT8HsW8VYeiiuU1IG3jY69EhnsQ--&format=source")
+    embed.set_thumbnail(url="https://images-eds-ssl.xboxlive.com/image?url=Q_rwcVSTCIytJ0KOzcjWTYl.n38D8jlKWXJx7NRJmQKBAEDCgtTAQ0JS02UoaiwRCHTTX1RAopljdoYpOaNfVf5nBNvbwGfyR5n4DAs0DsOwxSO9puiT_GgKqinHT8HsW8VYeiiuU1IG3jY69EhnsQ--&format=source")
+    await interation.response.send_message(embed=embed)
 bot.run(TOKEN)
