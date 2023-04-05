@@ -45,4 +45,11 @@ async def eightball(interation: discord.Interaction, message: str):
         async with (session.get("https://www.eightballapi.com/api")) as response:
             response = await response.json()
             await interation.response.send_message(response["reading"])
+
+@bot.tree.command(name="say", description="Type a message that you would like the bot to say.")
+async def say(interation: discord.Interaction, message: str):
+    try:
+        await interation.response.send_message(message)
+    except:
+        await interation.response.send_message("I don't want to say that!!")
 bot.run(TOKEN)
