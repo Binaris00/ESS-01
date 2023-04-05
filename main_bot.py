@@ -6,7 +6,8 @@ import discord
 from personal_things import TOKEN, random_descriptions
 from random import choice
 
-
+#For api request (Optional)
+import aiohttp
 
 
 
@@ -37,4 +38,11 @@ async def on_ready():
 async def ping(interation: discord.Interaction):
     await interation.response.send_message("Pong!", ephemeral=True)
 
+#Example how to make a api request and send, example about a very basic 8ball api
+@bot.tree.command(name="8ball", description="say a question and 8ball say your fortune")
+async def eightball(interation: discord.Interaction, message: str):
+    async with aiohttp.ClientSession() as session:
+        async with (session.get("https://www.eightballapi.com/api")) as response:
+            response = await response.json()
+            await interation.response.send_message(response["reading"])
 bot.run(TOKEN)
