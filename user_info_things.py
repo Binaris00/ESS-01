@@ -13,10 +13,12 @@ class user_info(discord.app_commands.Group):
     @discord.app_commands.command(name="avatar", description="display the user avatar")
     async def user_avatar(self, interation: discord.Interaction, user: discord.Member= None):
         if user == None:
-            data = interation.user.avatar
+            data = interation.user
         else:
-            data = user.avatar
-        await interation.response.send_message(data)
+            data = user
+        embed = discord.Embed(title=f"{data.name} Avatar")
+        embed.set_image(url=data.avatar)
+        await interation.response.send_message(embed=embed)
 
     @discord.app_commands.command(name="id", description="display the user id")
     async def user_id(self, interation: discord.Interaction, user: discord.Member= None):
