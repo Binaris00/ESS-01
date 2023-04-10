@@ -17,4 +17,4 @@ class cats_info(discord.app_commands.Group):
             await interation.response.send_message(response[0]["url"])
 
 async def setup(bot):
-   bot.tree.add_command(cats_info(name="cats", description="Facts and images about cats!!"))
+   bot.tree.add_command(cats_info(name="cats", description="Facts and images about cats!!")) 
