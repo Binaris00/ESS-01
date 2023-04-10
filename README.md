@@ -15,22 +15,22 @@ You can copy and use this code for whatever you want.
 
 ## Roadmap
 
-- Ticket system: Users can create private channels with the staff
+- ❌ Ticket system: Users can create private channels with the staff
 
-- Commands with multiple API requests: Example facts about animal, random images, and other things
+- ✅ Commands with multiple API requests: Example facts about animal, random images, and other things
 
-- Economy system: money and play games
+- ❌ Economy system: money and play games
 
-- Moderation commands: ban, mute, and others
+- ❌ Moderation commands: ban, mute, and others
 
-- Music System: spotify and youtube
+- ❌ Music System: spotify and youtube
 
-- Commands to decorate the server
+- ❌ Commands to decorate the server
 
-- Reminder system
+- ❌ Reminder system
 
-- Giveaway commands
+- ❌ Giveaway commands
 
-- Any simple game like tictactoe or rock, paper and scissor
+- ❌ Any simple game like tictactoe or rock, paper and scissor
 
-- See the delete commands and edit commands with log
+- ❌ See the delete commands and edit commands with log
