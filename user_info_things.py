@@ -38,7 +38,7 @@ class user_info(discord.app_commands.Group):
         embed.add_field(name="Name:", value=data.name)
         embed.add_field(name="Nick", value=data.nick)
         embed.add_field(name="id", value=data.id)
-        embed.add_field(name="Joined at", value=data.joined_at)
+        embed.add_field(name="Joined at", value=discord.utils.format_dt(data.joined_at))
         
         await interation.response.send_message(embed=embed)
         
