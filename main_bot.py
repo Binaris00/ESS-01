@@ -77,12 +77,14 @@ async def guild_ban(interaction: discord.Interaction, user: discord.Member, reas
     await interaction.guild.ban(user=user, reason=reason, delete_message_seconds=delete_message_seconds)
     await interaction.response.send_message(f"{user.name} Banned")
 
+@bot.tree.command(name="unban", description="Unban a user")
 async def guild_unban(interaction: discord.Interaction, user: discord.Member, reason: str=None):
     if reason == None:
         reason = "No reason"
     await interaction.guild.unban(user=user, reason=reason)
     await interaction.response.send_message(f"{user.name} Unbanned")
 
+@bot.tree.command(name="kick", description="Kick any user for your guild")
 async def guild_kick(interaction: discord.Interaction, user: discord.Member, reason: str=None):
     if reason == None:
         reason = "No reason"
