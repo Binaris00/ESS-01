@@ -64,6 +64,34 @@ async def say(interaction: discord.Interaction, message: str):
     try:
         await interaction.response.send_message(message)
     except:
-        await interaction.response.send_message("I don't want to say that!!")
+        await interaction.response.send_message("I don't want to say that!!", ephemeral=True)
+
+@bot.tree.command(name="ban", description="Ban any user for your guild")
+@discord.app_commands.checks.has_permissions(ban_members=True)
+async def guild_ban(interaction: discord.Interaction, user: discord.Member, reason: str=None, delete_message_seconds: int=None): #Don't use delete_message_days
+    if delete_message_seconds == None:
+        delete_message_seconds = 1
+    elif reason == None:
+        reason = "No reason"
+
+    await interaction.guild.ban(user=user, reason=reason, delete_message_seconds=delete_message_seconds)
+    await interaction.response.send_message(f"{user.name} Banned")
+
+async def guild_unban(interaction: discord.Interaction, user: discord.Member, reason: str=None):
+    if reason == None:
+        reason = "No reason"
+    await interaction.guild.unban(user=user, reason=reason)
+    await interaction.response.send_message(f"{user.name} Unbanned")
+
+async def guild_kick(interaction: discord.Interaction, user: discord.Member, reason: str=None):
+    if reason == None:
+        reason = "No reason"
+    await interaction.guild.kick(user=user, reason=reason)
+    await interaction.response.send_message(f"{user.name} Kicked")
+
+@guild_ban.error
+async def mod_cmd_permissions_error(interaction: discord.Interaction):
+    await interaction.response.send_message("You don't have permissions to use this command", ephemeral=True)
+
 
 bot.run(TOKEN)
