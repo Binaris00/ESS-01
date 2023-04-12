@@ -21,7 +21,7 @@ You can copy and use this code for whatever you want.
 
 - ❌ Economy system: money and play games
 
-- ❌ Moderation commands: ban, mute, and others
+- ✅ Moderation commands: ban, kick, and others
 
 - ❌ Music System: spotify and youtube
 
