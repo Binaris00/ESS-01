@@ -66,6 +66,9 @@ async def say(interaction: discord.Interaction, message: str):
     except:
         await interaction.response.send_message("I don't want to say that!!", ephemeral=True)
 
+
+
+# I need to create a message error if the user don't have permissions to use the commands
 @bot.tree.command(name="ban", description="Ban any user for your guild")
 @discord.app_commands.checks.has_permissions(ban_members=True)
 async def guild_ban(interaction: discord.Interaction, user: discord.Member, reason: str=None, delete_message_seconds: int=None): #Don't use delete_message_days
@@ -77,13 +80,6 @@ async def guild_ban(interaction: discord.Interaction, user: discord.Member, reas
     await interaction.guild.ban(user=user, reason=reason, delete_message_seconds=delete_message_seconds)
     await interaction.response.send_message(f"{user.name} Banned")
 
-@bot.tree.command(name="unban", description="Unban a user")
-async def guild_unban(interaction: discord.Interaction, user: discord.Member, reason: str=None):
-    if reason == None:
-        reason = "No reason"
-    await interaction.guild.unban(user=user, reason=reason)
-    await interaction.response.send_message(f"{user.name} Unbanned")
-
 @bot.tree.command(name="kick", description="Kick any user for your guild")
 async def guild_kick(interaction: discord.Interaction, user: discord.Member, reason: str=None):
     if reason == None:
@@ -91,9 +87,28 @@ async def guild_kick(interaction: discord.Interaction, user: discord.Member, rea
     await interaction.guild.kick(user=user, reason=reason)
     await interaction.response.send_message(f"{user.name} Kicked")
 
-@guild_ban.error
-async def mod_cmd_permissions_error(interaction: discord.Interaction):
-    await interaction.response.send_message("You don't have permissions to use this command", ephemeral=True)
 
 
+#Logs
+@bot.tree.command(name="log_messages", description="Send messages logs on a specific channel")
+@discord.app_commands.checks.has_permissions(view_audit_log=True)
+async def channel_name_finder(interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
+    if confirmation:
+        await interaction.response.send_message(f"Now I send the messages logs in {channel.name}")
+        
+        @bot.event
+        async def on_message_edit(before, after):
+            embed=discord.Embed(title="Edited Message Log", description=f"From {before.author} in {before.channel.name}", color=0xff0000)
+            embed.add_field(name="Before", value=before.content, inline=True)
+            embed.add_field(name="After", value=after.content, inline=True)
+            await channel.send(embed=embed)
+        
+        @bot.event
+        async def on_message_delete(message):
+            embed=discord.Embed(title="Deleted Message Log", description=f"From {message.author} in {message.channel.name}", color=0xff0000)
+            embed.add_field(name="Deleted Message:", value=message.content)
+            await channel.send(embed=embed)
+    else:
+        await interaction.response.send_message(f"Now not appear messages logs in {channel.name}")
+    
 bot.run(TOKEN)
