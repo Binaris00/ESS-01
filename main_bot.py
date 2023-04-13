@@ -30,7 +30,7 @@ async def on_ready():
         
         #load all slash commands
         synced = await bot.tree.sync()
-        await bot.change_presence(status=discord.Status.idle, activity=discord.Game(choice(random_descriptions)))
+        await bot.change_presence(status=discord.Status.online, activity=discord.Game(choice(random_descriptions)))
         
     except Exception as e:
         print(e)
@@ -87,12 +87,18 @@ async def guild_kick(interaction: discord.Interaction, user: discord.Member, rea
     await interaction.guild.kick(user=user, reason=reason)
     await interaction.response.send_message(f"{user.name} Kicked")
 
+@bot.tree.command(name="ban_list", description="See all users banned from your guild")
+async def guild_ban_list(interaction: discord.Interaction):
+    embed = discord.Embed(title="Banned Members", description="Banned Members from this guild")
+    async for entry in interaction.guild.audit_logs(action=discord.AuditLogAction.ban):
+        embed.add_field(name=f"{entry.user} Banned", value=f"{entry.target}")
+    await interaction.response.send_message(embed=embed)
 
 
 #Logs
 @bot.tree.command(name="log_messages", description="Send messages logs on a specific channel")
 @discord.app_commands.checks.has_permissions(view_audit_log=True)
-async def channel_name_finder(interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
+async def messages_log(interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
     if confirmation:
         await interaction.response.send_message(f"Now I send the messages logs in {channel.name}")
         
@@ -110,5 +116,25 @@ async def channel_name_finder(interaction: discord.Interaction, channel: discord
             await channel.send(embed=embed)
     else:
         await interaction.response.send_message(f"Now not appear messages logs in {channel.name}")
-    
+
+@bot.tree.command(name="log_reactions", description="Send reaction logs on a specific channel")
+@discord.app_commands.checks.has_permissions(view_audit_log=True)
+async def reaction_log(interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
+    if confirmation:
+        await interaction.response.send_message(f"Now I send the reaction logs in {channel.name}")
+        
+        @bot.event
+        async def on_reaction_add(reaction, user):
+            embed = discord.Embed(title="Reaction added log", description=f"{reaction} from {user.name}", color=0x106eea)
+            embed.add_field(name=f"Channel sent", value=reaction.message.channel)
+            embed.add_field(name="Message", value=reaction.message.content)
+            await channel.send(embed=embed)
+        
+        @bot.event
+        async def on_reaction_remove(reaction, user):
+            embed = discord.Embed(title="Reaction deleted log", description=f"{reaction} from {user.name}", color=0x106eea)
+            embed.add_field(name=f"Channel sent", value=reaction.message.channel)
+            embed.add_field(name="Message", value=reaction.message.content)
+            await channel.send(embed=embed)
+
 bot.run(TOKEN)
