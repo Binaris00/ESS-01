@@ -12,7 +12,6 @@ import aiohttp
 
 
 intents = discord.Intents.all()
-intents.message_content = True
 bot = commands.Bot(command_prefix='ess!', intents=intents)
 
 @bot.event
@@ -96,7 +95,7 @@ async def guild_ban_list(interaction: discord.Interaction):
 
 
 #Logs
-@bot.tree.command(name="log_messages", description="Send messages logs on a specific channel")
+@bot.tree.command(name="log_messages", description="Send messages logs to a specific channel")
 @discord.app_commands.checks.has_permissions(view_audit_log=True)
 async def messages_log(interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
     if confirmation:
@@ -117,7 +116,8 @@ async def messages_log(interaction: discord.Interaction, channel: discord.TextCh
     else:
         await interaction.response.send_message(f"Now not appear messages logs in {channel.name}")
 
-@bot.tree.command(name="log_reactions", description="Send reaction logs on a specific channel")
+
+@bot.tree.command(name="log_reactions", description="Send reaction logs to a specific channel")
 @discord.app_commands.checks.has_permissions(view_audit_log=True)
 async def reaction_log(interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
     if confirmation:
@@ -137,4 +137,62 @@ async def reaction_log(interaction: discord.Interaction, channel: discord.TextCh
             embed.add_field(name="Message", value=reaction.message.content)
             await channel.send(embed=embed)
 
+@bot.tree.command(name="log_roles", description="Send role logs to a specific channel")
+@discord.app_commands.checks.has_permissions(view_audit_log=True)
+async def role_log(interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
+    if confirmation:
+        await interaction.response.send_message(f"Now I send the roles log in {channel.name}")
+        
+        @bot.event
+        async def on_guild_role_create(role):
+            embed = discord.Embed(title="Role Created Log", description=f"Created at {discord.utils.format_dt(role.created_at)}", color=0x0df23b)
+            embed.add_field(name="Role Name:", value=role.name)
+            embed.add_field(name="Role Color:", value=role.color)
+            embed.add_field(name="Role ID:", value=role.id)
+            embed.add_field(name="Role Permissions:", value=role.permissions)
+            await channel.send(embed=embed)
+        
+        @bot.event
+        async def on_guild_role_delete(role):
+            embed = discord.Embed(title="Role Deleted Log", description=f"Name: {role.name}", color=0x0df23b)
+            await channel.send(embed=embed)
+        
+        @bot.event
+        async def on_guild_role_update(role_before, role_after):
+            embed = discord.Embed(title="Role Deleted Log", color=0x0df23b)
+            embed.add_field(name="Role Before Name:", value=role_before.name)
+            embed.add_field(name="Role After Name:", value=role_after.name)
+            
+            embed.add_field(name="Role Before Color:", value=role_before.color)
+            embed.add_field(name="Role After Color:", value=role_after.color)
+            
+            embed.add_field(name="Role Before ID:", value=role_before.id)
+            embed.add_field(name="Role After ID:", value=role_after.id)
+            
+            embed.add_field(name="Role Before Permissions:", value=role_before.permissions)
+            embed.add_field(name="Role After Permissions:", value=role_after.permissions)
+            await channel.send(embed=embed)
+    else:
+        await interaction.response.send_message(f"Now not appear roles logs in {channel.name}")
+
+@bot.tree.command(name="thread_logs", description=f"Send thread logs to a specific channel")
+@discord.app_commands.checks.has_permissions(view_audit_log=True)
+async def thread_logs(interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
+    if confirmation:
+        await interaction.response.send_message(f"Now I send the thread logs in {channel.name}")
+    
+    @bot.event
+    async def on_thread_create(thread):
+        embed = discord.Embed(title="Thread Created Log", color=0xe6e6e6)
+        embed.add_field(name="Thread Name:", value=thread.name)
+        embed.add_field(name="Thread Owner:", value=thread.owner)
+        embed.add_field(name="Created At:", value=thread.created_at)
+        embed.add_field(name="Categorys:", value=thread.category)
+    
+    @bot.event
+    async def on_thread_delete(thread):
+        embed = discord.Embed(title="Thread Deleted Log", color=0xe6e6e6)
+        embed.add_field(name="Thread Name:", value=thread.name)
+    
+    
 bot.run(TOKEN)
