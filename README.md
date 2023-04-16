@@ -25,12 +25,10 @@ You can copy and use this code for whatever you want.
 
 - ❌ Music System: spotify and youtube
 
-- ❌ Commands to decorate the server
-
 - ❌ Reminder system
 
 - ❌ Giveaway commands
 
 - ❌ Any simple game like tictactoe or rock, paper and scissor
 
-- ✴️ See the delete commands and edit commands with log
+- ✅ See the delete commands and edit commands with log
