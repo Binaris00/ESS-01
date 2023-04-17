@@ -25,7 +25,7 @@ You can copy and use this code for whatever you want.
 
 - ❌ Music System: spotify and youtube
 
-- ❌ Reminder system
+- ✅ Reminder system
 
 - ❌ Giveaway commands
 
