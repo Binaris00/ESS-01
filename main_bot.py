@@ -1,7 +1,7 @@
 #Essentials modules
 from discord.ext import commands
 import discord
-
+from asyncio import sleep
 #Optional modules and bot token and random descriptions when the bot is turn on
 from personal_things import TOKEN, random_descriptions
 from random import choice
@@ -34,6 +34,16 @@ async def on_ready():
         
     except Exception as e:
         print(e)
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -89,5 +99,24 @@ async def guild_ban_list(interaction: discord.Interaction):
         embed.add_field(name=f"{entry.user} Banned", value=f"{entry.target}")
     await interaction.response.send_message(embed=embed)
 
+@bot.tree.command(name="reminder", description="I renember any thing for you")
+async def reminder(interaction: discord.Interaction, reason: str,  seconds: float=None, minutes: float=None, hours: float=None):    
+    if seconds == None:
+        seconds = 0
+    elif minutes != None:
+        seconds += minutes * 60
+        if hours != None:
+            seconds += hours * 3600
+    elif seconds == 0 and minutes == None and hours == None:
+        await interaction.response.send_message("Please select any second, minute or hour", ephemeral=True)
+    embed = discord.Embed(title="Reminder Created", description=f"Reason: {reason}")
+    embed.add_field(name="Time", value=seconds)
+    await interaction.response.send_message(embed=embed)
+    
+    await sleep(seconds)
+    embed = discord.Embed(title=f"Reminder {interaction.user.display_name}", description=f"Reason: {reason}", color=discord.Color.random)
+    await interaction.channel.send(interaction.user.mention)
+    await interaction.channel.send(embed=embed)
+    
     
 bot.run(TOKEN)
