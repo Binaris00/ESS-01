@@ -88,6 +88,9 @@ class Log_info(commands.Cog):
                         
                   embed.add_field(name="Role Before Permissions:", value=role_before.permissions, inline=False)
                   embed.add_field(name="Role After Permissions:", value=role_after.permissions, inline=True)
+                  
+                  embed.add_field(name="Role Before Position:", value=role_before.position, inline=False)
+                  embed.add_field(name="Role After Position:", value=role_after.position, inline=True)
                   await channel.send(embed=embed)
 
 

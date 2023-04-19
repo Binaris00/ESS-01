@@ -56,7 +56,7 @@ async def ping(interaction: discord.Interaction):
 
 #Example how to make a api request and send, example about a very basic 8ball api
 @bot.tree.command(name="8ball", description="say a question and 8ball say your fortune")
-@discord.app_commands.describe(message='The member you want to get the joined date from; defaults to the user who uses the command')
+@discord.app_commands.describe(message='Your question to 8ball')
 async def eightball(interaction: discord.Interaction, message: str):
     """Send a api request to eightball api and send the answer"""
     async with aiohttp.ClientSession() as session:
@@ -65,6 +65,7 @@ async def eightball(interaction: discord.Interaction, message: str):
             await interaction.response.send_message(response["reading"])
 
 @bot.tree.command(name="say", description="Type a message that you would like the bot to say.")
+@discord.app_commands.describe(message="The message you want I say")
 async def say(interaction: discord.Interaction, message: str):
     try:
         await interaction.response.send_message(message)
