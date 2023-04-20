@@ -4,12 +4,12 @@ import discord
 
 
 class Log_info(commands.Cog):
-      def __init__(self, bot, message_channel=None, reaction_channel=None, role_channel=None, thread_channel=None):
+      def __init__(self, bot):
             self.bot = bot
-            self.message_channel = message_channel
-            self.reaction_channel = reaction_channel
-            self.role_channel = role_channel
-            self.thread_channel = thread_channel
+            self.message_channel = None
+            self.reaction_channel = None
+            self.role_channel = None
+            self.thread_channel = None
       
       
       #Message Logs

@@ -77,6 +77,7 @@ async def say(interaction: discord.Interaction, message: str):
 # I need to create a message error if the user don't have permissions to use the commands
 @bot.tree.command(name="ban", description="Ban any user for your guild")
 @discord.app_commands.checks.has_permissions(ban_members=True)
+@discord.app_commands.describe(user="User to ban for your guild", reason= "If you want write a reason for this kick",  delete_message_seconds="Delete messages for this user")
 async def guild_ban(interaction: discord.Interaction, user: discord.Member, reason: str=None, delete_message_seconds: int=None): #Don't use delete_message_days
     if delete_message_seconds == None:
         delete_message_seconds = 1
@@ -87,6 +88,7 @@ async def guild_ban(interaction: discord.Interaction, user: discord.Member, reas
     await interaction.response.send_message(f"{user.name} Banned")
 
 @bot.tree.command(name="kick", description="Kick any user for your guild")
+@discord.app_commands.describe(user="User to kick for you guild", reason="If you want write a reason for this kick")
 async def guild_kick(interaction: discord.Interaction, user: discord.Member, reason: str=None):
     if reason == None:
         reason = "No reason"
