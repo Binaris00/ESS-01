@@ -19,7 +19,7 @@ You can copy and use this code for whatever you want.
 
 - ✅ Commands with multiple API requests: Example facts about animal, random images, and other things
 
-- ❌ Economy system: money and play games
+- ✅ Economy system: money and play games
 
 - ✅ Moderation commands: ban, kick, and others
 
