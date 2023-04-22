@@ -25,8 +25,8 @@ async def on_ready():
         await bot.load_extension("animals.animals_cats")
         await bot.load_extension("animals.animals_dogs")
         await bot.load_extension("personal_things") #This is my personal commands and other things
-        await bot.load_extension("decoration_roles")
         await bot.load_extension("guild_logs")
+        await bot.load_extension("economy_system")
         
         #load all slash commands
         synced = await bot.tree.sync()
@@ -121,5 +121,5 @@ async def reminder(interaction: discord.Interaction, reason: str,  seconds: floa
     await interaction.channel.send(interaction.user.mention)
     await interaction.channel.send(embed=embed)
     
-    
+
 bot.run(TOKEN)
