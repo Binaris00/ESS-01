@@ -6,7 +6,9 @@ I create this proyect in one month so maybe don't have a good code :c
 I recommend to view this links to learn about discord.py
 
 https://discordpy.readthedocs.io/en/stable/ Official Documentation
+
 https://github.com/Rapptz/discord.py/tree/master/examples Official Examples
+
 https://github.com/richardschwabe/discord-bot-2022-course
 
 I am not a expert with discord.py so use this repository for reference only.
