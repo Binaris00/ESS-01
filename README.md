@@ -1,16 +1,18 @@
 # ESS-01
-This is a simple and very useful bot to learn how to use discord.py
+This is a simple bot to learn how to use discord.py
+I create this proyect in one month so maybe don't have a good code :c
 
-I recommend to view the dumentation for discord.py
-https://discordpy.readthedocs.io/en/stable/
+
+I recommend to view this links to learn about discord.py
+
+https://discordpy.readthedocs.io/en/stable/ Official Documentation
+https://github.com/Rapptz/discord.py/tree/master/examples Official Examples
+https://github.com/richardschwabe/discord-bot-2022-course
 
 I am not a expert with discord.py so use this repository for reference only.
 
-If this code have a error say me the error.
-
-You can copy and use this code for whatever you want.
-
-
+Maybe I upgrade this repo in other time but idk
+You can copy and use this code for whatever you want. 
 
 
 ## Roadmap
