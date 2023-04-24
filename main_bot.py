@@ -13,20 +13,18 @@ import aiohttp
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='ess!', intents=intents)
+extensions = ["user_info_things", "animals.animals_cats", "animals.animals_dogs", "personal_things", "guild_logs", "economy_system", "tictactoe_game"]
 
 @bot.event
 async def on_ready():
     """When the bot is turning on, load all extensions, load all slash commands and select a descriptions"""
     
-    print(f'You connect correctly {bot.user}')
+    print(f'You connect correctly {bot.user}\n')
     try:
         #Extensions
-        await bot.load_extension("user_info_things")
-        await bot.load_extension("animals.animals_cats")
-        await bot.load_extension("animals.animals_dogs")
-        await bot.load_extension("personal_things") #This is my personal commands and other things
-        await bot.load_extension("guild_logs")
-        await bot.load_extension("economy_system")
+        for extension in extensions:
+            await bot.load_extension(extension)
+            print(f"Loaded {extension} correctly")
         
         #load all slash commands
         synced = await bot.tree.sync()
@@ -89,6 +87,7 @@ async def guild_ban(interaction: discord.Interaction, user: discord.Member, reas
 
 @bot.tree.command(name="kick", description="Kick any user for your guild")
 @discord.app_commands.describe(user="User to kick for you guild", reason="If you want write a reason for this kick")
+@discord.app_commands.checks.has_permissions(kick_members=True)
 async def guild_kick(interaction: discord.Interaction, user: discord.Member, reason: str=None):
     if reason == None:
         reason = "No reason"
