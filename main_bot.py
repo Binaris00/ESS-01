@@ -121,6 +121,7 @@ async def reminder(interaction: discord.Interaction, reason: str,  seconds: floa
     await interaction.channel.send(embed=embed)
 
 @bot.tree.command(name="purge", description="Eliminate X messages in channel")
+@discord.app_commands.checks.has_permissions(manage_messages=True)
 async def purge(interaction: discord.Interaction, channel:discord.TextChannel=None, limit: int= 100):
     if channel == None:
         channel = interaction.message.channel
