@@ -13,7 +13,7 @@ import aiohttp
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='ess!', intents=intents)
-extensions = ["user_info_things", "animals.animals_cats", "animals.animals_dogs", "personal_things", "guild_logs", "economy_system", "tictactoe_game"]
+extensions = ["user_info_things", "animals.animals_cats", "animals.animals_dogs", "personal_things", "guild_logs", "economy_system", "tictactoe_game", "examples.buttons_example", "examples.tree_commands"]
 
 @bot.event
 async def on_ready():
@@ -119,6 +119,12 @@ async def reminder(interaction: discord.Interaction, reason: str,  seconds: floa
     embed = discord.Embed(title=f"Reminder {interaction.user.display_name}", description=f"Reason: {reason}", color=discord.Color.random)
     await interaction.channel.send(interaction.user.mention)
     await interaction.channel.send(embed=embed)
-    
+
+@bot.tree.command(name="purge", description="Eliminate X messages in channel")
+async def purge(interaction: discord.Interaction, channel:discord.TextChannel=None, limit: int= 100):
+    if channel == None:
+        channel = interaction.message.channel
+    await interaction.response.send_message("Purge in process", ephemeral=True)
+    await channel.purge(limit=limit)
 
 bot.run(TOKEN)
