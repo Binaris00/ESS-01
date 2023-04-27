@@ -131,7 +131,6 @@ class Log(commands.Cog):
                   setattr(messagelog, "message_channel", None)
                   await interaction.response.send_message(f"Not sending messages logs in {channel.name}")
       
-      
       @app_commands.command(name="reaction_log", description="Send reaction logs to a specific channel")
       @app_commands.checks.has_permissions(view_audit_log=True)
       async def reaction_log(self, interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
@@ -144,6 +143,7 @@ class Log(commands.Cog):
                   await interaction.response.send_message(f"Not sending reaction logs in {channel.name}")
                   
       
+      
       @app_commands.command(name="roles_log", description="Send role logs to a specific channel")
       @app_commands.checks.has_permissions(view_audit_log=True)
       async def role_log(self, interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
@@ -154,7 +154,11 @@ class Log(commands.Cog):
             else:
                   setattr(rolelog, "role_channel", None)
                   await interaction.response.send_message(f"Not sending roles logs in {channel.name}")
+      
+      
+      
       @app_commands.command(name="thread_log", description="Send thread logs to a specific channel")
+      @app_commands.checks.has_permissions(view_audit_log=True)
       async def thread_log(self, interaction: discord.Interaction, channel: discord.TextChannel, confirmation: bool):
             threadlog = self.bot.get_cog("Log_info")
             if confirmation:
@@ -163,6 +167,15 @@ class Log(commands.Cog):
             else:
                   setattr(threadlog, "thread_channel", None)
                   await interaction.response.send_message(f"Now sending thread logs in {channel.name}")
+      
+      @messages_log.error
+      @role_log.error
+      @thread_log.error
+      @reaction_log.error
+      async def log_error(self, interaction: discord.Interaction, error):
+            if isinstance(error, commands.MissingPermissions):
+                  await interaction.response.send_message("You don't have permissions to do this", ephemeral=True)
+      
 async def setup(bot):
       await bot.add_cog(Log(bot))
       await bot.add_cog(Log_info(bot))
