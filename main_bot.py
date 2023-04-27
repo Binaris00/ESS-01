@@ -13,7 +13,7 @@ import aiohttp
 
 intents = discord.Intents.all()
 bot = commands.Bot(command_prefix='ess!', intents=intents)
-extensions = ["user_info_things", "animals.animals_cats", "animals.animals_dogs", "personal_things", "guild_logs", "economy_system", "tictactoe_game", "examples.buttons_example", "examples.tree_commands"]
+extensions = ["user_info_things", "animals.animals_cats", "animals.animals_dogs", "personal_things", "guild_logs", "economy_system", "tictactoe_game", "examples.buttons_example", "examples.tree_commands", "examples.select_menu"]
 
 @bot.event
 async def on_ready():
