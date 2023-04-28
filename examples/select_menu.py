@@ -5,10 +5,10 @@ import discord
 
 class Select_Menu(View):
    def __init__(self, *, timeout: float | None = 180):
-      super().__init__(timeout=timeout)
+      super().__init__(timeout=timeout) # This is not necessary to use 
       self.new = "I don't have more ideas to create a good new"
       
-      
+      #Label is the message for a select menu option, don't create 2 options with the same value and the description
    @discord.ui.select(
       placeholder="Example Select Menu",
       options=[
@@ -18,12 +18,14 @@ class Select_Menu(View):
          discord.SelectOption(label="Embed Messages", value="4", description="Normal embed message"),
          discord.SelectOption(label="Server news", value="5", description="If the server have any new change you can see here"),
       ]
-   )
+   ) #Now the things to do when the user select a option
    async def select_callback(self, interaction, select):
       select.disabled=True
       if select.values[0] == "1":
          embed = discord.Embed(title="Rules (Joke)", description="1-`📗` Don't be racist \n2-`📘`Don't send any message in discord\n3-`📙`Don't talk with any staff", color=discord.Color.dark_blue())
          await interaction.response.send_message(embed=embed, ephemeral=True)
+
+
       elif select.values[0] == "2":
          data = interaction.user
          embed = discord.Embed(title=f"{data.name} Info")
@@ -32,15 +34,23 @@ class Select_Menu(View):
          embed.add_field(name="Nick", value=data.nick)
          embed.add_field(name="id", value=data.id)
          embed.add_field(name="Joined at", value=discord.utils.format_dt(data.joined_at))
-         
          await interaction.response.send_message(embed=embed, ephemeral=True)
+      
+      
       elif select.values[0] == "3":
          await interaction.response.send_message("omg this is a message :O", ephemeral=True)
+      
+      
       elif select.values[0] == "4":
          embed = discord.Embed(title="Normal Embed", description="Omg this is just a normal embed aaaaa", color=discord.Color.dark_blue())
          await interaction.response.send_message(embed=embed, ephemeral=True)
+      
+      
       elif select.values[0] == "5":
          await interaction.response.send_message(self.new, ephemeral=True)
+
+
+
 
 class Select_menu_cog(commands.Cog):
    def __init__(self, bot):
