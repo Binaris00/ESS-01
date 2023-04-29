@@ -20,7 +20,7 @@ class Economy(commands.Cog):
                                description="You start with 1000 coins in your wallet! Now simple commands you can use to generate more monet",
                                color=0x5773ff)
          embed.add_field(name="/work", value="Generate legal money with cooldown: 5 minutes")
-         embed.add_field(name="/crime", value="Participe or make a crime to generate money, may be you can lose money, cooldown: 10 minutes")
+         embed.add_field(name="/crime", value="Join or make a crime to generate money, may be you can lose money, cooldown: 10 minutes")
          embed.add_field(name="/deposit", value="Deposit money from your wallet for your bank")
          embed.add_field(name="/withdraw", value="Withdraw your money from your bank")
          embed.add_field(name="/money", value="See your wallet and bank money")
@@ -51,7 +51,7 @@ class Economy(commands.Cog):
    async def economy_work(self, interaction: discord.Interaction):
       if self.started:
          money_earned = random.randint(100, 300)
-         with open("work messages.txt", "r", encoding="utf8") as file:
+         with open("resources\work messages.txt", "r", encoding="utf8") as file:
             file = file.read()
             file = file.splitlines()
             message = random.choice(file)
@@ -68,14 +68,14 @@ class Economy(commands.Cog):
    
    
    
-   @app_commands.command(name="crime", description="You choice the ilegal way to earn money, maybe you can lose money")
+   @app_commands.command(name="crime", description="You choice the illegal way to earn money, maybe you can lose money")
    @app_commands.checks.cooldown(1, 600)
    async def economy_crime(self, interaction: discord.Interaction):
       if self.started:
          if random.random() <= 0.6:
             money_earned = random.randint(500, 700)
             self.wallet += money_earned
-            with open("crime good messages.txt", "r", encoding="utf8") as file:
+            with open("resources\crime good messages.txt", "r", encoding="utf8") as file:
                file = file.read()
                file = file.splitlines()
                message = random.choice(file)
@@ -85,7 +85,7 @@ class Economy(commands.Cog):
          else:
             money_missed = random.randint(300, 500)
             self.wallet -= money_missed
-            with open("crime bad messages.txt", "r", encoding="utf8") as file:
+            with open("resources\crime bad messages.txt", "r", encoding="utf8") as file:
                file = file.read()
                file = file.splitlines()
                message = random.choice(file)
@@ -102,7 +102,7 @@ class Economy(commands.Cog):
    
    
    @app_commands.command(name="deposit", description="Deposit money from your wallet for your bank")
-   async def ecoomy_deposit(self, interaction: discord.Interaction, money: int):
+   async def economy_deposit(self, interaction: discord.Interaction, money: int):
       if self.started:
          if self.wallet >= money:
             self.wallet -= money

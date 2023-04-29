@@ -136,7 +136,7 @@ async def guild_ban_list(interaction: discord.Interaction, error):
         await interaction.response.send_message("You don't have permission to do this", ephemeral=True)
 
 
-@bot.tree.command(name="reminder", description="I renember any thing for you")
+@bot.tree.command(name="reminder", description="I remember any thing for you")
 async def reminder(interaction: discord.Interaction, reason: str,  seconds: float=None, minutes: float=None, hours: float=None):    
     if seconds == None:
         seconds = 0
@@ -168,7 +168,7 @@ async def purge(interaction: discord.Interaction, channel:discord.TextChannel=No
     await channel.purge(limit=limit)
 
 @purge.error
-async def pruge_error(interaction: discord.Interaction, error):
+async def purge_error(interaction: discord.Interaction, error):
     if isinstance(error, commands.MissingPermissions):
         await interaction.response.send_message("You don't have permissions do to this", ephemeral=True)
 
