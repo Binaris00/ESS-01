@@ -1,6 +1,6 @@
 # ESS-01
 This is a simple bot to learn how to use discord.py
-I create this proyect in one month so maybe don't have a good code :c
+I create this project in one month so maybe don't have a good code :c
 
 
 I recommend to view this links to learn about discord.py
@@ -17,22 +17,26 @@ Maybe I upgrade this repo in other time but idk
 You can copy and use this code for whatever you want. 
 
 
-## Roadmap
+## Features
 
-- ❌ Ticket system: Users can create private channels with the staff
+- Commands with multiple API requests: Example facts about animal, random images, and other things
 
-- ✅ Commands with multiple API requests: Example facts about animal, random images, and other things
+- Economy system: money and play games
 
-- ✅ Economy system: money and play games
+- Moderation commands: ban, kick, and others
 
-- ✅ Moderation commands: ban, kick, and others
+- Reminder system
 
-- ❌ Music System: spotify and youtube
+- See the delete commands and edit commands with log
 
-- ✅ Reminder system
+- Simple examples
 
-- ❌ Giveaway commands
+## Future Plans
 
-- ❌ Any simple game like tictactoe or rock, paper and scissor
+- Ticket system: Users can create private channels with the staff
 
-- ✅ See the delete commands and edit commands with log
+- Music System: spotify and youtube
+
+- Giveaway commands
+
+- Any simple game like tictactoe or rock, paper and scissor
